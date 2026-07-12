@@ -36,7 +36,6 @@
     -webkit-font-smoothing:antialiased;
   }
 
-  /* subtle paper grain */
   body::before{
     content:"";
     position:fixed;
@@ -56,14 +55,13 @@
 
   h1,h2,h3{font-family:'Fraunces', serif; font-weight:500; margin:0;}
 
-  .wrap{max-width:920px; margin:0 auto; padding:0 24px; position:relative; z-index:1;}
+  .wrap{max-width:1180px; margin:0 auto; padding:0 24px; position:relative; z-index:1;}
 
   a{color:var(--gold);}
 
-  /* ---------- HERO ---------- */
   .hero{padding:88px 0 48px;}
   .hero .year{
-    font-size:clamp(64px, 14vw, 150px);
+    font-size:clamp(56px, 13vw, 132px);
     line-height:0.9;
     letter-spacing:-2px;
     background:linear-gradient(115deg, var(--gold) 0%, var(--rose) 55%, var(--clay) 100%);
@@ -73,7 +71,7 @@
   }
   .hero .kicker{
     font-family:'Caveat', cursive;
-    font-size:28px;
+    font-size:24px;
     color:var(--gold);
     margin-bottom:6px;
     display:block;
@@ -81,11 +79,10 @@
   .hero p.sub{
     max-width:520px;
     color:var(--cream-dim);
-    font-size:17px;
+    font-size:15px;
     margin-top:18px;
   }
 
-  /* overall progress */
   .overall{
     margin-top:40px;
     display:flex;
@@ -110,13 +107,12 @@
   }
   .overall-label{
     font-family:'Fraunces', serif;
-    font-size:15px;
+    font-size:13px;
     color:var(--cream-dim);
     white-space:nowrap;
   }
-  .overall-label strong{color:var(--cream); font-size:18px;}
+  .overall-label strong{color:var(--cream); font-size:16px;}
 
-  /* ---------- NAV TABS ---------- */
   .tabs{
     display:flex;
     gap:8px;
@@ -129,8 +125,8 @@
   }
   .tab{
     font-family:'Fraunces', serif;
-    font-size:14px;
-    padding:8px 16px;
+    font-size:13px;
+    padding:7px 15px;
     border-radius:20px;
     border:1px solid var(--line);
     background:var(--bg-card);
@@ -145,7 +141,6 @@
     outline:none;
   }
 
-  /* ---------- SECTIONS ---------- */
   section.category{padding:56px 0 8px;}
   .cat-head{
     display:flex;
@@ -157,31 +152,33 @@
   }
   .cat-tag{
     font-family:'Caveat', cursive;
-    font-size:22px;
+    font-size:19px;
   }
-  .cat-head h2{font-size:28px;}
+  .cat-head h2{font-size:24px;}
   .cat-count{
     margin-left:auto;
-    font-size:13px;
+    font-size:12px;
     color:var(--cream-dim);
     font-family:'Karla', sans-serif;
   }
 
   .grid{
     display:grid;
-    grid-template-columns:repeat(2, 1fr);
-    gap:18px;
+    grid-template-columns:repeat(3, 1fr);
+    gap:16px;
   }
-  @media (max-width:680px){
+  @media (max-width:940px){
+    .grid{grid-template-columns:repeat(2, 1fr);}
+  }
+  @media (max-width:600px){
     .grid{grid-template-columns:1fr;}
   }
 
-  /* ---------- GOAL CARD ---------- */
   .card{
     background:var(--bg-card);
     border:1px solid var(--line);
     border-radius:16px;
-    padding:20px 20px 18px;
+    padding:46px 18px 16px;
     position:relative;
     box-shadow:var(--shadow);
     transition:background .25s ease, transform .25s ease, box-shadow .25s ease;
@@ -192,11 +189,28 @@
     box-shadow:0 16px 30px -14px rgba(74,59,54,0.32);
   }
 
+  .goal-num{
+    position:absolute;
+    top:14px;
+    left:14px;
+    width:24px;
+    height:24px;
+    border-radius:50%;
+    border:1px solid var(--line);
+    background:var(--bg);
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-family:'Fraunces', serif;
+    font-size:11px;
+    color:var(--cream-dim);
+  }
+
   .status-badge{
     position:absolute;
-    top:16px;
-    right:16px;
-    font-size:11px;
+    top:14px;
+    right:14px;
+    font-size:9.5px;
     font-family:'Karla', sans-serif;
     font-weight:700;
     letter-spacing:0.02em;
@@ -227,23 +241,22 @@
   .ring-pct{
     position:absolute; inset:0;
     display:flex; align-items:center; justify-content:center;
-    font-size:12px; font-family:'Fraunces', serif; color:var(--cream);
+    font-size:11px; font-family:'Fraunces', serif; color:var(--cream);
   }
 
-  .card-body h3{font-size:17px; margin-bottom:6px; color:var(--cream);}
-  .card-body .blurb{font-size:13.5px; color:var(--cream-dim); line-height:1.5; margin:0;}
+  .card-body h3{font-size:15px; margin-bottom:6px; color:var(--cream);}
+  .card-body .blurb{font-size:12.5px; color:var(--cream-dim); line-height:1.5; margin:0;}
 
-  /* progress updates log */
   .updates{border-top:1px solid var(--line); padding-top:12px;}
   .updates-label{
     font-family:'Caveat', cursive;
-    font-size:17px;
+    font-size:15px;
     color:var(--accent, var(--gold));
     margin-bottom:6px;
   }
   .update-list{list-style:none; margin:0; padding:0; display:flex; flex-direction:column; gap:5px;}
   .update-list li{
-    font-size:13px;
+    font-size:12px;
     color:var(--cream-dim);
     padding-left:14px;
     position:relative;
@@ -258,21 +271,15 @@
   }
   .update-list li.empty{color:var(--cream-dim); opacity:0.6; font-style:italic;}
   .update-list li.empty::before{display:none;}
-    color:var(--cream-dim);
-    font-size:11px;
-    cursor:pointer;
-    font-family:'Karla', sans-serif;
-  }
-  .streak button.on{background:var(--accent, var(--gold)); color:var(--bg); border-color:var(--accent, var(--gold));}
 
   footer{
     padding:60px 0 80px;
     color:var(--cream-dim);
-    font-size:13px;
+    font-size:12px;
     border-top:1px solid var(--line);
     margin-top:40px;
   }
-  footer .signoff{font-family:'Caveat', cursive; font-size:20px; color:var(--gold); display:block; margin-bottom:6px;}
+  footer .signoff{font-family:'Caveat', cursive; font-size:18px; color:var(--gold); display:block; margin-bottom:6px;}
 
   @media (prefers-reduced-motion: reduce){
     *{transition:none !important; scroll-behavior:auto !important;}
@@ -311,12 +318,6 @@
 </div>
 
 <script>
-/* ---------------------------------------------------
-   GOAL DATA — this is a static, view-only snapshot.
-   To update: change "percent" (0-100) and add new
-   entries to the top of "updates", then re-upload
-   this file to GitHub.
---------------------------------------------------- */
 const CATEGORIES = [
   { id:"social",  label:"Social & Hobbies",  tag:"the fun stuff",        accent:"var(--rose)" },
   { id:"health",  label:"Health",             tag:"looking after myself", accent:"var(--sage)" },
@@ -387,18 +388,12 @@ const GOALS = [
   },
 ];
 
-/* ---------------------------------------------------
-   STATUS — derived from percent
---------------------------------------------------- */
 function statusOf(goal){
   if(goal.percent <= 0) return { label:"not started", cls:"" };
   if(goal.percent >= 100) return { label:"completed", cls:"completed" };
   return { label:"in progress", cls:"in-progress" };
 }
 
-/* ---------------------------------------------------
-   RENDER
---------------------------------------------------- */
 const RADIUS = 21;
 const CIRC = 2 * Math.PI * RADIUS;
 
@@ -431,10 +426,11 @@ function updatesHTML(goal){
   `;
 }
 
-function cardHTML(goal, accent){
+function cardHTML(goal, accent, num){
   const status = statusOf(goal);
   return `
     <div class="card" style="--accent:${accent}">
+      <span class="goal-num">${num}</span>
       <span class="status-badge ${status.cls}">${status.label}</span>
       <div class="card-top">
         ${ringSVG(goal.percent, accent)}
@@ -460,7 +456,7 @@ function render(){
           <span class="cat-count">${goals.length} goal${goals.length !== 1 ? 's' : ''}</span>
         </div>
         <div class="grid">
-          ${goals.map(g => cardHTML(g, cat.accent)).join("")}
+          ${goals.map(g => cardHTML(g, cat.accent, GOALS.indexOf(g) + 1)).join("")}
         </div>
       </section>
     `;
