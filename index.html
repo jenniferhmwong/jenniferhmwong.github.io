@@ -61,7 +61,7 @@
 
   .hero{padding:88px 0 48px;}
   .hero .year{
-    font-size:clamp(56px, 13vw, 132px);
+    font-size:clamp(64px, 14vw, 150px);
     line-height:0.9;
     letter-spacing:-2px;
     background:linear-gradient(115deg, var(--gold) 0%, var(--rose) 55%, var(--clay) 100%);
@@ -71,7 +71,7 @@
   }
   .hero .kicker{
     font-family:'Caveat', cursive;
-    font-size:24px;
+    font-size:28px;
     color:var(--gold);
     margin-bottom:6px;
     display:block;
@@ -79,39 +79,9 @@
   .hero p.sub{
     max-width:520px;
     color:var(--cream-dim);
-    font-size:15px;
+    font-size:17px;
     margin-top:18px;
   }
-
-  .overall{
-    margin-top:40px;
-    display:flex;
-    align-items:center;
-    gap:20px;
-    flex-wrap:wrap;
-  }
-  .overall-track{
-    flex:1;
-    min-width:180px;
-    height:10px;
-    background:rgba(242,232,220,0.1);
-    border-radius:6px;
-    overflow:hidden;
-  }
-  .overall-fill{
-    height:100%;
-    background:linear-gradient(90deg, var(--gold), var(--rose));
-    border-radius:6px;
-    width:0%;
-    transition:width 0.6s ease;
-  }
-  .overall-label{
-    font-family:'Fraunces', serif;
-    font-size:13px;
-    color:var(--cream-dim);
-    white-space:nowrap;
-  }
-  .overall-label strong{color:var(--cream); font-size:16px;}
 
   .tabs{
     display:flex;
@@ -125,8 +95,8 @@
   }
   .tab{
     font-family:'Fraunces', serif;
-    font-size:13px;
-    padding:7px 15px;
+    font-size:14px;
+    padding:8px 16px;
     border-radius:20px;
     border:1px solid var(--line);
     background:var(--bg-card);
@@ -152,12 +122,12 @@
   }
   .cat-tag{
     font-family:'Caveat', cursive;
-    font-size:19px;
+    font-size:22px;
   }
-  .cat-head h2{font-size:24px;}
+  .cat-head h2{font-size:28px;}
   .cat-count{
     margin-left:auto;
-    font-size:12px;
+    font-size:13px;
     color:var(--cream-dim);
     font-family:'Karla', sans-serif;
   }
@@ -210,7 +180,7 @@
     position:absolute;
     top:14px;
     right:14px;
-    font-size:9.5px;
+    font-size:11px;
     font-family:'Karla', sans-serif;
     font-weight:700;
     letter-spacing:0.02em;
@@ -233,30 +203,21 @@
     color:var(--check-mark);
   }
 
-  .card-top{display:flex; gap:14px; align-items:flex-start; margin-bottom:14px; padding-right:78px;}
-  .ring-wrap{flex-shrink:0; position:relative; width:52px; height:52px;}
-  .ring-wrap svg{transform:rotate(-90deg);}
-  .ring-bg{fill:none; stroke:rgba(74,59,54,0.09); stroke-width:5;}
-  .ring-fill{fill:none; stroke-width:5; stroke-linecap:round; transition:stroke-dashoffset .5s ease;}
-  .ring-pct{
-    position:absolute; inset:0;
-    display:flex; align-items:center; justify-content:center;
-    font-size:11px; font-family:'Fraunces', serif; color:var(--cream);
-  }
+  .card-top{margin-bottom:14px; padding-right:78px;}
 
-  .card-body h3{font-size:15px; margin-bottom:6px; color:var(--cream);}
+  .card-body h3{font-size:16px; margin-bottom:6px; color:var(--cream);}
   .card-body .blurb{font-size:12.5px; color:var(--cream-dim); line-height:1.5; margin:0;}
 
   .updates{border-top:1px solid var(--line); padding-top:12px;}
   .updates-label{
     font-family:'Caveat', cursive;
-    font-size:15px;
+    font-size:17px;
     color:var(--accent, var(--gold));
     margin-bottom:6px;
   }
   .update-list{list-style:none; margin:0; padding:0; display:flex; flex-direction:column; gap:5px;}
   .update-list li{
-    font-size:12px;
+    font-size:13px;
     color:var(--cream-dim);
     padding-left:14px;
     position:relative;
@@ -275,11 +236,11 @@
   footer{
     padding:60px 0 80px;
     color:var(--cream-dim);
-    font-size:12px;
+    font-size:13px;
     border-top:1px solid var(--line);
     margin-top:40px;
   }
-  footer .signoff{font-family:'Caveat', cursive; font-size:18px; color:var(--gold); display:block; margin-bottom:6px;}
+  footer .signoff{font-family:'Caveat', cursive; font-size:20px; color:var(--gold); display:block; margin-bottom:6px;}
 
   @media (prefers-reduced-motion: reduce){
     *{transition:none !important; scroll-behavior:auto !important;}
@@ -294,11 +255,6 @@
     <span class="kicker">the year, kept track of —</span>
     <h1 class="year">2026</h1>
     <p class="sub">Ten things I'm working toward this year, sorted the way they actually live in my head: how I spend my downtime, how I take care of myself, the career I want to build, and how it all fits together.</p>
-
-    <div class="overall">
-      <div class="overall-track"><div class="overall-fill" id="overallFill"></div></div>
-      <div class="overall-label"><strong id="overallPct">0%</strong> of the year, so far</div>
-    </div>
   </header>
 
   <nav class="tabs">
@@ -394,26 +350,6 @@ function statusOf(goal){
   return { label:"in progress", cls:"in-progress" };
 }
 
-const RADIUS = 21;
-const CIRC = 2 * Math.PI * RADIUS;
-
-function ringSVG(pct, accent){
-  const offset = CIRC * (1 - pct / 100);
-  return `
-    <div class="ring-wrap">
-      <svg width="52" height="52" viewBox="0 0 52 52">
-        <circle class="ring-bg" cx="26" cy="26" r="${RADIUS}"></circle>
-        <circle class="ring-fill" cx="26" cy="26" r="${RADIUS}"
-          stroke="${accent}"
-          stroke-dasharray="${CIRC}"
-          stroke-dashoffset="${offset}"></circle>
-      </svg>
-      <div class="ring-pct">${goal_pct_label(pct)}</div>
-    </div>
-  `;
-}
-function goal_pct_label(pct){ return Math.round(pct) + "%"; }
-
 function updatesHTML(goal){
   const items = goal.updates && goal.updates.length
     ? goal.updates.map(u => `<li>${u}</li>`).join("")
@@ -433,11 +369,8 @@ function cardHTML(goal, accent, num){
       <span class="goal-num">${num}</span>
       <span class="status-badge ${status.cls}">${status.label}</span>
       <div class="card-top">
-        ${ringSVG(goal.percent, accent)}
-        <div>
-          <h3>${goal.title}</h3>
-          <p class="blurb">${goal.blurb}</p>
-        </div>
+        <h3>${goal.title}</h3>
+        <p class="blurb">${goal.blurb}</p>
       </div>
       ${updatesHTML(goal)}
     </div>
@@ -461,15 +394,6 @@ function render(){
       </section>
     `;
   }).join("");
-
-  updateOverall();
-}
-
-function updateOverall(){
-  const total = GOALS.reduce((sum, g) => sum + g.percent, 0);
-  const pct = Math.round(total / GOALS.length);
-  document.getElementById("overallFill").style.width = pct + "%";
-  document.getElementById("overallPct").textContent = pct + "%";
 }
 
 render();
