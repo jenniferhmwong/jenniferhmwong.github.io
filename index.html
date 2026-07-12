@@ -182,8 +182,7 @@
     border:1px solid var(--line);
     border-radius:16px;
     padding:20px 20px 18px;
-    display:flex;
-    gap:16px;
+    position:relative;
     box-shadow:var(--shadow);
     transition:background .25s ease, transform .25s ease, box-shadow .25s ease;
   }
@@ -193,76 +192,78 @@
     box-shadow:0 16px 30px -14px rgba(74,59,54,0.32);
   }
 
-  .ring-wrap{flex-shrink:0; position:relative; width:58px; height:58px;}
+  .status-badge{
+    position:absolute;
+    top:16px;
+    right:16px;
+    font-size:11px;
+    font-family:'Karla', sans-serif;
+    font-weight:700;
+    letter-spacing:0.02em;
+    text-transform:uppercase;
+    padding:4px 10px;
+    border-radius:12px;
+    border:1px solid var(--line);
+    background:var(--bg);
+    color:var(--cream-dim);
+    white-space:nowrap;
+  }
+  .status-badge.in-progress{
+    border-color:var(--accent, var(--gold));
+    color:var(--accent, var(--gold));
+    background:transparent;
+  }
+  .status-badge.completed{
+    border-color:var(--accent, var(--gold));
+    background:var(--accent, var(--gold));
+    color:var(--check-mark);
+  }
+
+  .card-top{display:flex; gap:14px; align-items:flex-start; margin-bottom:14px; padding-right:78px;}
+  .ring-wrap{flex-shrink:0; position:relative; width:52px; height:52px;}
   .ring-wrap svg{transform:rotate(-90deg);}
   .ring-bg{fill:none; stroke:rgba(74,59,54,0.09); stroke-width:5;}
   .ring-fill{fill:none; stroke-width:5; stroke-linecap:round; transition:stroke-dashoffset .5s ease;}
   .ring-pct{
     position:absolute; inset:0;
     display:flex; align-items:center; justify-content:center;
-    font-size:13px; font-family:'Fraunces', serif; color:var(--cream);
+    font-size:12px; font-family:'Fraunces', serif; color:var(--cream);
   }
 
-  .card-body{flex:1; min-width:0;}
-  .card-body h3{font-size:17px; margin-bottom:4px; color:var(--cream);}
-  .card-body .note{font-size:13px; color:var(--cream-dim); margin-bottom:12px; font-family:'Caveat', cursive; font-size:16px;}
+  .card-body h3{font-size:17px; margin-bottom:6px; color:var(--cream);}
+  .card-body .blurb{font-size:13.5px; color:var(--cream-dim); line-height:1.5; margin:0;}
 
-  /* checklist */
-  .steps{list-style:none; margin:0; padding:0; display:flex; flex-direction:column; gap:6px;}
-  .steps li{display:flex; align-items:flex-start; gap:8px; font-size:14px;}
-  .steps input[type="checkbox"]{
-    appearance:none;
-    width:16px; height:16px;
-    margin-top:2px;
-    border:1.5px solid var(--cream-dim);
-    border-radius:4px;
-    cursor:pointer;
-    flex-shrink:0;
+  /* progress updates log */
+  .updates{border-top:1px solid var(--line); padding-top:12px;}
+  .updates-label{
+    font-family:'Caveat', cursive;
+    font-size:17px;
+    color:var(--accent, var(--gold));
+    margin-bottom:6px;
+  }
+  .update-list{list-style:none; margin:0; padding:0; display:flex; flex-direction:column; gap:5px;}
+  .update-list li{
+    font-size:13px;
+    color:var(--cream-dim);
+    padding-left:14px;
     position:relative;
   }
-  .steps input[type="checkbox"]:checked{
-    background:var(--accent, var(--gold));
-    border-color:var(--accent, var(--gold));
-  }
-  .steps input[type="checkbox"]:checked::after{
-    content:"✓";
-    position:absolute; inset:0;
-    display:flex; align-items:center; justify-content:center;
-    font-size:11px; color:var(--check-mark); font-weight:700;
-  }
-  .steps input[type="checkbox"]:focus-visible{outline:2px solid var(--cream); outline-offset:2px;}
-  .steps label{color:var(--cream-dim); cursor:pointer;}
-  .steps li.done label{color:var(--cream); text-decoration:line-through; text-decoration-color:var(--cream-dim);}
-
-  /* counter widget */
-  .counter{display:flex; align-items:center; gap:10px; margin-top:2px;}
-  .counter button{
-    width:26px; height:26px;
+  .update-list li::before{
+    content:"";
+    position:absolute;
+    left:0; top:7px;
+    width:5px; height:5px;
     border-radius:50%;
-    border:1px solid var(--line);
-    background:transparent;
-    color:var(--cream);
-    font-size:15px;
-    cursor:pointer;
-    line-height:1;
+    background:var(--accent, var(--gold));
   }
-  .counter button:hover, .counter button:focus-visible{border-color:var(--accent, var(--gold)); outline:none;}
-  .counter .count-display{font-family:'Fraunces', serif; font-size:16px; min-width:64px; text-align:center;}
-
-  /* streak widget */
-  .streak{display:flex; gap:6px; flex-wrap:wrap; margin-top:2px;}
-  .streak button{
-    width:28px; height:28px;
-    border-radius:6px;
-    border:1px solid var(--line);
-    background:transparent;
+  .update-list li.empty{color:var(--cream-dim); opacity:0.6; font-style:italic;}
+  .update-list li.empty::before{display:none;}
     color:var(--cream-dim);
     font-size:11px;
     cursor:pointer;
     font-family:'Karla', sans-serif;
   }
   .streak button.on{background:var(--accent, var(--gold)); color:var(--bg); border-color:var(--accent, var(--gold));}
-  .streak button:focus-visible{outline:2px solid var(--cream); outline-offset:2px;}
 
   footer{
     padding:60px 0 80px;
@@ -285,7 +286,7 @@
   <header class="hero">
     <span class="kicker">the year, kept track of —</span>
     <h1 class="year">2026</h1>
-    <p class="sub">Twelve things I'm working toward this year, sorted the way they actually live in my head: who I want to be with, how I want to feel, what I want to build, and what I want to be smarter about.</p>
+    <p class="sub">Ten things I'm working toward this year, sorted the way they actually live in my head: how I spend my downtime [social & hobbies], how I take care of myself [health], the career I want to build [portfolio career], and how it all fits together [finance].</p>
 
     <div class="overall">
       <div class="overall-track"><div class="overall-fill" id="overallFill"></div></div>
@@ -303,174 +304,146 @@
   <main id="app"></main>
 
   <footer>
-    <span class="signoff">still writing this one —</span>
-    Progress on this page is saved automatically in your browser. Edit the goals list right in the HTML to add, tweak, or retire anything as the year moves on.
+    <span class="signoff">foot notes —</span>
+    This page shows where I'm actually at — it's a snapshot in time. I update it myself as the year goes on.
   </footer>
 
 </div>
 
 <script>
 /* ---------------------------------------------------
-   GOAL DATA
-   type: "checklist" | "counter" | "streak"
-   accent: css color used for that card's fill/checks
+   GOAL DATA — this is a static, view-only snapshot.
+   To update: change "percent" (0-100) and add new
+   entries to the top of "updates", then re-upload
+   this file to GitHub.
 --------------------------------------------------- */
 const CATEGORIES = [
   { id:"social",  label:"Social & Hobbies",  tag:"the fun stuff",        accent:"var(--rose)" },
   { id:"health",  label:"Health",             tag:"looking after myself", accent:"var(--sage)" },
-  { id:"career",  label:"Portfolio Career",   tag:"building something",   accent:"var(--clay)" },
-  { id:"finance", label:"Finance",            tag:"getting my act together", accent:"var(--peri)" },
+  { id:"career",  label:"Portfolio Career",   tag:"building an intentional career",   accent:"var(--clay)" },
+  { id:"finance", label:"Finance",            tag:"adulting", accent:"var(--peri)" },
 ];
 
 const GOALS = [
   {
     id:"read-12-books", cat:"social", title:"Read 12 books",
-    type:"counter", target:12, unit:"books"
+    blurb:"I love reading biographies and memoirs - they help me learn from other people's successes and challenges.",
+    percent:8,
+    updates:["Finished Educated by Tara Westover"]
   },
   {
     id:"liam-photobook", cat:"social", title:"Print a photobook of Liam's first year",
-    type:"checklist",
-    steps:["Choose the photos","Pick a layout / service","Design the pages","Order the print","It arrives!"]
+    blurb:"A proper printed keepsake of Liam's whole first year.",
+    percent:0,
+    updates:[]
   },
   {
     id:"postcards", cat:"social", title:"Write 1 postcard a week, all summer",
-    type:"counter", target:12, unit:"postcards"
+    blurb:"One handwritten postcard a week during our Canada/Europe sabbatical.",
+    percent:0,
+    updates:[]
   },
   {
     id:"operationlady", cat:"social", title:"Wardrobe makeover — #operationlady",
-    type:"checklist",
-    steps:["Clear out the old wardrobe","Define the style I actually want","Shop the key pieces","Wear the first \u2018new me\u2019 outfit"]
+    blurb:"Building a wardrobe that I really love and feel good in.",
+    percent:0,
+    updates:[]
   },
   {
-    id:"5k", cat:"health", title:"Sub-3-minute 5k",
-    type:"checklist",
-    steps:["Run a 5k, any time","Break 4:00","Break 3:30","Break 3:15","Break 3:00 🎉"]
+    id:"5k", cat:"health", title:"Sub 30 minute 5k, 6:00/km pace",
+    blurb:"Getting back into shape after baby",
+    percent:0,
+    updates:[]
   },
   {
     id:"meal-prep", cat:"health", title:"Meal prep every weekend, back in Sydney",
-    type:"streak", weeks:12, note:"tap a week once it's back in the rhythm"
+    blurb:"To have more time during the week to spend with the family.",
+    percent:0,
+    updates:[]
   },
   {
     id:"cpr", cat:"health", title:"Learn CPR",
-    type:"checklist",
-    steps:["Find a course","Book it","Attend the training","Certified"]
+    blurb:"A skill I've meant to learn for years — finally getting properly certified.",
+    percent:0,
+    updates:[]
   },
   {
     id:"cookie-stall", cat:"career", title:"Launch first cookie pop-up at the local market",
-    type:"checklist",
-    steps:["Nail the recipe","Sort packaging & branding","Book a market stall","Pop-up day!"]
+    blurb:"Testing my career dream of opening my own business and selling something I'm passionate about.",
+    percent:0,
+    updates:[]
   },
   {
     id:"interview", cat:"career", title:"Interview at one company",
-    type:"checklist",
-    steps:["Shortlist companies","Update CV / portfolio","Apply","Land the interview"]
+    blurb:"Getting my feet wet with returning to full time work.",
+    percent:0,
+    updates:[]
   },
   {
     id:"financial-advisor", cat:"finance", title:"Get a financial advisor",
-    type:"checklist",
-    steps:["Research advisors","Book consultations","Choose one","First meeting done"]
+    blurb:"Getting professional eyes on our finances to work toward our long term goals.",
+    percent:0,
+    updates:[]
   },
 ];
 
 /* ---------------------------------------------------
-   STATE  (persisted to localStorage)
+   STATUS — derived from percent
 --------------------------------------------------- */
-const STORE_KEY = "goals-2026-state";
-let state = {};
-try{
-  state = JSON.parse(localStorage.getItem(STORE_KEY)) || {};
-}catch(e){ state = {}; }
-
-function saveState(){
-  try{ localStorage.setItem(STORE_KEY, JSON.stringify(state)); }catch(e){}
-}
-
-function getGoalState(goal){
-  if(!state[goal.id]){
-    if(goal.type === "checklist") state[goal.id] = { done: goal.steps.map(()=>false) };
-    if(goal.type === "counter") state[goal.id] = { count: 0 };
-    if(goal.type === "streak") state[goal.id] = { on: Array(goal.weeks).fill(false) };
-  }
-  return state[goal.id];
-}
-
-function progressOf(goal){
-  const s = getGoalState(goal);
-  if(goal.type === "checklist"){
-    const doneCt = s.done.filter(Boolean).length;
-    return doneCt / goal.steps.length;
-  }
-  if(goal.type === "counter"){
-    return Math.min(1, s.count / goal.target);
-  }
-  if(goal.type === "streak"){
-    const onCt = s.on.filter(Boolean).length;
-    return onCt / goal.weeks;
-  }
-  return 0;
+function statusOf(goal){
+  if(goal.percent <= 0) return { label:"not started", cls:"" };
+  if(goal.percent >= 100) return { label:"completed", cls:"completed" };
+  return { label:"in progress", cls:"in-progress" };
 }
 
 /* ---------------------------------------------------
    RENDER
 --------------------------------------------------- */
-const RADIUS = 24;
+const RADIUS = 21;
 const CIRC = 2 * Math.PI * RADIUS;
 
 function ringSVG(pct, accent){
-  const offset = CIRC * (1 - pct);
+  const offset = CIRC * (1 - pct / 100);
   return `
     <div class="ring-wrap">
-      <svg width="58" height="58" viewBox="0 0 58 58">
-        <circle class="ring-bg" cx="29" cy="29" r="${RADIUS}"></circle>
-        <circle class="ring-fill" cx="29" cy="29" r="${RADIUS}"
+      <svg width="52" height="52" viewBox="0 0 52 52">
+        <circle class="ring-bg" cx="26" cy="26" r="${RADIUS}"></circle>
+        <circle class="ring-fill" cx="26" cy="26" r="${RADIUS}"
           stroke="${accent}"
           stroke-dasharray="${CIRC}"
           stroke-dashoffset="${offset}"></circle>
       </svg>
-      <div class="ring-pct">${Math.round(pct*100)}%</div>
+      <div class="ring-pct">${goal_pct_label(pct)}</div>
+    </div>
+  `;
+}
+function goal_pct_label(pct){ return Math.round(pct) + "%"; }
+
+function updatesHTML(goal){
+  const items = goal.updates && goal.updates.length
+    ? goal.updates.map(u => `<li>${u}</li>`).join("")
+    : `<li class="empty">No updates yet</li>`;
+  return `
+    <div class="updates">
+      <div class="updates-label">progress updates —</div>
+      <ul class="update-list">${items}</ul>
     </div>
   `;
 }
 
-function widgetHTML(goal){
-  const s = getGoalState(goal);
-  if(goal.type === "checklist"){
-    return `<ul class="steps">` + goal.steps.map((step, i) => `
-      <li class="${s.done[i] ? 'done' : ''}">
-        <input type="checkbox" id="${goal.id}-${i}" data-goal="${goal.id}" data-idx="${i}" ${s.done[i] ? 'checked' : ''}>
-        <label for="${goal.id}-${i}">${step}</label>
-      </li>
-    `).join("") + `</ul>`;
-  }
-  if(goal.type === "counter"){
-    return `
-      <div class="counter">
-        <button data-goal="${goal.id}" data-dir="-1" aria-label="decrease">−</button>
-        <span class="count-display">${s.count} / ${goal.target} ${goal.unit}</span>
-        <button data-goal="${goal.id}" data-dir="1" aria-label="increase">+</button>
-      </div>
-    `;
-  }
-  if(goal.type === "streak"){
-    return `
-      <div class="streak">
-        ${s.on.map((on, i) => `<button data-goal="${goal.id}" data-idx="${i}" class="${on ? 'on' : ''}" aria-label="week ${i+1}">${i+1}</button>`).join("")}
-      </div>
-      ${goal.note ? `<div class="note">${goal.note}</div>` : ""}
-    `;
-  }
-  return "";
-}
-
 function cardHTML(goal, accent){
-  const pct = progressOf(goal);
+  const status = statusOf(goal);
   return `
     <div class="card" style="--accent:${accent}">
-      ${ringSVG(pct, accent)}
-      <div class="card-body">
-        <h3>${goal.title}</h3>
-        ${widgetHTML(goal)}
+      <span class="status-badge ${status.cls}">${status.label}</span>
+      <div class="card-top">
+        ${ringSVG(goal.percent, accent)}
+        <div>
+          <h3>${goal.title}</h3>
+          <p class="blurb">${goal.blurb}</p>
+        </div>
       </div>
+      ${updatesHTML(goal)}
     </div>
   `;
 }
@@ -493,49 +466,14 @@ function render(){
     `;
   }).join("");
 
-  attachHandlers();
   updateOverall();
 }
 
 function updateOverall(){
-  const total = GOALS.reduce((sum, g) => sum + progressOf(g), 0);
-  const pct = Math.round((total / GOALS.length) * 100);
+  const total = GOALS.reduce((sum, g) => sum + g.percent, 0);
+  const pct = Math.round(total / GOALS.length);
   document.getElementById("overallFill").style.width = pct + "%";
   document.getElementById("overallPct").textContent = pct + "%";
-}
-
-function attachHandlers(){
-  document.querySelectorAll('.steps input[type="checkbox"]').forEach(cb => {
-    cb.addEventListener("change", () => {
-      const goal = GOALS.find(g => g.id === cb.dataset.goal);
-      const s = getGoalState(goal);
-      s.done[cb.dataset.idx] = cb.checked;
-      saveState();
-      render();
-    });
-  });
-
-  document.querySelectorAll('.counter button').forEach(btn => {
-    btn.addEventListener("click", () => {
-      const goal = GOALS.find(g => g.id === btn.dataset.goal);
-      const s = getGoalState(goal);
-      const dir = parseInt(btn.dataset.dir, 10);
-      s.count = Math.max(0, Math.min(goal.target, s.count + dir));
-      saveState();
-      render();
-    });
-  });
-
-  document.querySelectorAll('.streak button').forEach(btn => {
-    btn.addEventListener("click", () => {
-      const goal = GOALS.find(g => g.id === btn.dataset.goal);
-      const s = getGoalState(goal);
-      const i = parseInt(btn.dataset.idx, 10);
-      s.on[i] = !s.on[i];
-      saveState();
-      render();
-    });
-  });
 }
 
 render();
