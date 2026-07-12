@@ -1,0 +1,545 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>2026 — Field Notes</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400..600&family=Karla:wght@400;500;700&family=Caveat:wght@600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg: #FBF1E6;
+    --bg-card: #FFFCF7;
+    --bg-card-hi: #FFF6EA;
+    --cream: #4A3B36;
+    --cream-dim: #8A766D;
+    --gold: #B9862E;
+    --rose: #B5636F;
+    --sage: #6E8B57;
+    --clay: #B8923F;
+    --peri: #5F73A0;
+    --line: rgba(74,59,54,0.12);
+    --check-mark: #FFFCF7;
+    --shadow: 0 10px 26px -14px rgba(74,59,54,0.28);
+  }
+
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+
+  body{
+    margin:0;
+    background:var(--bg);
+    color:var(--cream);
+    font-family:'Karla', sans-serif;
+    line-height:1.6;
+    -webkit-font-smoothing:antialiased;
+  }
+
+  /* subtle paper grain */
+  body::before{
+    content:"";
+    position:fixed;
+    inset:0;
+    pointer-events:none;
+    opacity:0.06;
+    background-image:radial-gradient(circle at 1px 1px, #4A3B36 1px, transparent 0);
+    background-size:22px 22px;
+    z-index:0;
+  }
+
+  body{
+    background-image:radial-gradient(ellipse at 20% -10%, rgba(185,134,46,0.10), transparent 55%),
+                      radial-gradient(ellipse at 100% 10%, rgba(181,99,111,0.08), transparent 50%);
+    background-attachment:fixed;
+  }
+
+  h1,h2,h3{font-family:'Fraunces', serif; font-weight:500; margin:0;}
+
+  .wrap{max-width:920px; margin:0 auto; padding:0 24px; position:relative; z-index:1;}
+
+  a{color:var(--gold);}
+
+  /* ---------- HERO ---------- */
+  .hero{padding:88px 0 48px;}
+  .hero .year{
+    font-size:clamp(64px, 14vw, 150px);
+    line-height:0.9;
+    letter-spacing:-2px;
+    background:linear-gradient(115deg, var(--gold) 0%, var(--rose) 55%, var(--clay) 100%);
+    -webkit-background-clip:text;
+    background-clip:text;
+    color:transparent;
+  }
+  .hero .kicker{
+    font-family:'Caveat', cursive;
+    font-size:28px;
+    color:var(--gold);
+    margin-bottom:6px;
+    display:block;
+  }
+  .hero p.sub{
+    max-width:520px;
+    color:var(--cream-dim);
+    font-size:17px;
+    margin-top:18px;
+  }
+
+  /* overall progress */
+  .overall{
+    margin-top:40px;
+    display:flex;
+    align-items:center;
+    gap:20px;
+    flex-wrap:wrap;
+  }
+  .overall-track{
+    flex:1;
+    min-width:180px;
+    height:10px;
+    background:rgba(242,232,220,0.1);
+    border-radius:6px;
+    overflow:hidden;
+  }
+  .overall-fill{
+    height:100%;
+    background:linear-gradient(90deg, var(--gold), var(--rose));
+    border-radius:6px;
+    width:0%;
+    transition:width 0.6s ease;
+  }
+  .overall-label{
+    font-family:'Fraunces', serif;
+    font-size:15px;
+    color:var(--cream-dim);
+    white-space:nowrap;
+  }
+  .overall-label strong{color:var(--cream); font-size:18px;}
+
+  /* ---------- NAV TABS ---------- */
+  .tabs{
+    display:flex;
+    gap:8px;
+    flex-wrap:wrap;
+    padding:20px 0 8px;
+    position:sticky;
+    top:0;
+    background:linear-gradient(var(--bg) 80%, transparent);
+    z-index:5;
+  }
+  .tab{
+    font-family:'Fraunces', serif;
+    font-size:14px;
+    padding:8px 16px;
+    border-radius:20px;
+    border:1px solid var(--line);
+    background:var(--bg-card);
+    color:var(--cream-dim);
+    text-decoration:none;
+    transition:all .2s ease;
+  }
+  .tab:hover, .tab:focus-visible{
+    border-color:currentColor;
+    background:var(--bg-card-hi);
+    box-shadow:var(--shadow);
+    outline:none;
+  }
+
+  /* ---------- SECTIONS ---------- */
+  section.category{padding:56px 0 8px;}
+  .cat-head{
+    display:flex;
+    align-items:baseline;
+    gap:14px;
+    border-bottom:1px solid var(--line);
+    padding-bottom:14px;
+    margin-bottom:28px;
+  }
+  .cat-tag{
+    font-family:'Caveat', cursive;
+    font-size:22px;
+  }
+  .cat-head h2{font-size:28px;}
+  .cat-count{
+    margin-left:auto;
+    font-size:13px;
+    color:var(--cream-dim);
+    font-family:'Karla', sans-serif;
+  }
+
+  .grid{
+    display:grid;
+    grid-template-columns:repeat(2, 1fr);
+    gap:18px;
+  }
+  @media (max-width:680px){
+    .grid{grid-template-columns:1fr;}
+  }
+
+  /* ---------- GOAL CARD ---------- */
+  .card{
+    background:var(--bg-card);
+    border:1px solid var(--line);
+    border-radius:16px;
+    padding:20px 20px 18px;
+    display:flex;
+    gap:16px;
+    box-shadow:var(--shadow);
+    transition:background .25s ease, transform .25s ease, box-shadow .25s ease;
+  }
+  .card:hover{
+    background:var(--bg-card-hi);
+    transform:translateY(-2px);
+    box-shadow:0 16px 30px -14px rgba(74,59,54,0.32);
+  }
+
+  .ring-wrap{flex-shrink:0; position:relative; width:58px; height:58px;}
+  .ring-wrap svg{transform:rotate(-90deg);}
+  .ring-bg{fill:none; stroke:rgba(74,59,54,0.09); stroke-width:5;}
+  .ring-fill{fill:none; stroke-width:5; stroke-linecap:round; transition:stroke-dashoffset .5s ease;}
+  .ring-pct{
+    position:absolute; inset:0;
+    display:flex; align-items:center; justify-content:center;
+    font-size:13px; font-family:'Fraunces', serif; color:var(--cream);
+  }
+
+  .card-body{flex:1; min-width:0;}
+  .card-body h3{font-size:17px; margin-bottom:4px; color:var(--cream);}
+  .card-body .note{font-size:13px; color:var(--cream-dim); margin-bottom:12px; font-family:'Caveat', cursive; font-size:16px;}
+
+  /* checklist */
+  .steps{list-style:none; margin:0; padding:0; display:flex; flex-direction:column; gap:6px;}
+  .steps li{display:flex; align-items:flex-start; gap:8px; font-size:14px;}
+  .steps input[type="checkbox"]{
+    appearance:none;
+    width:16px; height:16px;
+    margin-top:2px;
+    border:1.5px solid var(--cream-dim);
+    border-radius:4px;
+    cursor:pointer;
+    flex-shrink:0;
+    position:relative;
+  }
+  .steps input[type="checkbox"]:checked{
+    background:var(--accent, var(--gold));
+    border-color:var(--accent, var(--gold));
+  }
+  .steps input[type="checkbox"]:checked::after{
+    content:"✓";
+    position:absolute; inset:0;
+    display:flex; align-items:center; justify-content:center;
+    font-size:11px; color:var(--check-mark); font-weight:700;
+  }
+  .steps input[type="checkbox"]:focus-visible{outline:2px solid var(--cream); outline-offset:2px;}
+  .steps label{color:var(--cream-dim); cursor:pointer;}
+  .steps li.done label{color:var(--cream); text-decoration:line-through; text-decoration-color:var(--cream-dim);}
+
+  /* counter widget */
+  .counter{display:flex; align-items:center; gap:10px; margin-top:2px;}
+  .counter button{
+    width:26px; height:26px;
+    border-radius:50%;
+    border:1px solid var(--line);
+    background:transparent;
+    color:var(--cream);
+    font-size:15px;
+    cursor:pointer;
+    line-height:1;
+  }
+  .counter button:hover, .counter button:focus-visible{border-color:var(--accent, var(--gold)); outline:none;}
+  .counter .count-display{font-family:'Fraunces', serif; font-size:16px; min-width:64px; text-align:center;}
+
+  /* streak widget */
+  .streak{display:flex; gap:6px; flex-wrap:wrap; margin-top:2px;}
+  .streak button{
+    width:28px; height:28px;
+    border-radius:6px;
+    border:1px solid var(--line);
+    background:transparent;
+    color:var(--cream-dim);
+    font-size:11px;
+    cursor:pointer;
+    font-family:'Karla', sans-serif;
+  }
+  .streak button.on{background:var(--accent, var(--gold)); color:var(--bg); border-color:var(--accent, var(--gold));}
+  .streak button:focus-visible{outline:2px solid var(--cream); outline-offset:2px;}
+
+  footer{
+    padding:60px 0 80px;
+    color:var(--cream-dim);
+    font-size:13px;
+    border-top:1px solid var(--line);
+    margin-top:40px;
+  }
+  footer .signoff{font-family:'Caveat', cursive; font-size:20px; color:var(--gold); display:block; margin-bottom:6px;}
+
+  @media (prefers-reduced-motion: reduce){
+    *{transition:none !important; scroll-behavior:auto !important;}
+  }
+</style>
+</head>
+<body>
+
+<div class="wrap">
+
+  <header class="hero">
+    <span class="kicker">the year, kept track of —</span>
+    <h1 class="year">2026</h1>
+    <p class="sub">Twelve things I'm working toward this year, sorted the way they actually live in my head: who I want to be with, how I want to feel, what I want to build, and what I want to be smarter about.</p>
+
+    <div class="overall">
+      <div class="overall-track"><div class="overall-fill" id="overallFill"></div></div>
+      <div class="overall-label"><strong id="overallPct">0%</strong> of the year, so far</div>
+    </div>
+  </header>
+
+  <nav class="tabs">
+    <a class="tab" href="#social" style="color:var(--rose)">Social &amp; Hobbies</a>
+    <a class="tab" href="#health" style="color:var(--sage)">Health</a>
+    <a class="tab" href="#career" style="color:var(--clay)">Portfolio Career</a>
+    <a class="tab" href="#finance" style="color:var(--peri)">Finance</a>
+  </nav>
+
+  <main id="app"></main>
+
+  <footer>
+    <span class="signoff">still writing this one —</span>
+    Progress on this page is saved automatically in your browser. Edit the goals list right in the HTML to add, tweak, or retire anything as the year moves on.
+  </footer>
+
+</div>
+
+<script>
+/* ---------------------------------------------------
+   GOAL DATA
+   type: "checklist" | "counter" | "streak"
+   accent: css color used for that card's fill/checks
+--------------------------------------------------- */
+const CATEGORIES = [
+  { id:"social",  label:"Social & Hobbies",  tag:"the fun stuff",        accent:"var(--rose)" },
+  { id:"health",  label:"Health",             tag:"looking after myself", accent:"var(--sage)" },
+  { id:"career",  label:"Portfolio Career",   tag:"building something",   accent:"var(--clay)" },
+  { id:"finance", label:"Finance",            tag:"getting my act together", accent:"var(--peri)" },
+];
+
+const GOALS = [
+  {
+    id:"read-12-books", cat:"social", title:"Read 12 books",
+    type:"counter", target:12, unit:"books"
+  },
+  {
+    id:"liam-photobook", cat:"social", title:"Print a photobook of Liam's first year",
+    type:"checklist",
+    steps:["Choose the photos","Pick a layout / service","Design the pages","Order the print","It arrives!"]
+  },
+  {
+    id:"postcards", cat:"social", title:"Write 1 postcard a week, all summer",
+    type:"counter", target:12, unit:"postcards"
+  },
+  {
+    id:"operationlady", cat:"social", title:"Wardrobe makeover — #operationlady",
+    type:"checklist",
+    steps:["Clear out the old wardrobe","Define the style I actually want","Shop the key pieces","Wear the first \u2018new me\u2019 outfit"]
+  },
+  {
+    id:"5k", cat:"health", title:"Sub-3-minute 5k",
+    type:"checklist",
+    steps:["Run a 5k, any time","Break 4:00","Break 3:30","Break 3:15","Break 3:00 🎉"]
+  },
+  {
+    id:"meal-prep", cat:"health", title:"Meal prep every weekend, back in Sydney",
+    type:"streak", weeks:12, note:"tap a week once it's back in the rhythm"
+  },
+  {
+    id:"cpr", cat:"health", title:"Learn CPR",
+    type:"checklist",
+    steps:["Find a course","Book it","Attend the training","Certified"]
+  },
+  {
+    id:"cookie-stall", cat:"career", title:"Launch first cookie pop-up at the local market",
+    type:"checklist",
+    steps:["Nail the recipe","Sort packaging & branding","Book a market stall","Pop-up day!"]
+  },
+  {
+    id:"interview", cat:"career", title:"Interview at one company",
+    type:"checklist",
+    steps:["Shortlist companies","Update CV / portfolio","Apply","Land the interview"]
+  },
+  {
+    id:"financial-advisor", cat:"finance", title:"Get a financial advisor",
+    type:"checklist",
+    steps:["Research advisors","Book consultations","Choose one","First meeting done"]
+  },
+];
+
+/* ---------------------------------------------------
+   STATE  (persisted to localStorage)
+--------------------------------------------------- */
+const STORE_KEY = "goals-2026-state";
+let state = {};
+try{
+  state = JSON.parse(localStorage.getItem(STORE_KEY)) || {};
+}catch(e){ state = {}; }
+
+function saveState(){
+  try{ localStorage.setItem(STORE_KEY, JSON.stringify(state)); }catch(e){}
+}
+
+function getGoalState(goal){
+  if(!state[goal.id]){
+    if(goal.type === "checklist") state[goal.id] = { done: goal.steps.map(()=>false) };
+    if(goal.type === "counter") state[goal.id] = { count: 0 };
+    if(goal.type === "streak") state[goal.id] = { on: Array(goal.weeks).fill(false) };
+  }
+  return state[goal.id];
+}
+
+function progressOf(goal){
+  const s = getGoalState(goal);
+  if(goal.type === "checklist"){
+    const doneCt = s.done.filter(Boolean).length;
+    return doneCt / goal.steps.length;
+  }
+  if(goal.type === "counter"){
+    return Math.min(1, s.count / goal.target);
+  }
+  if(goal.type === "streak"){
+    const onCt = s.on.filter(Boolean).length;
+    return onCt / goal.weeks;
+  }
+  return 0;
+}
+
+/* ---------------------------------------------------
+   RENDER
+--------------------------------------------------- */
+const RADIUS = 24;
+const CIRC = 2 * Math.PI * RADIUS;
+
+function ringSVG(pct, accent){
+  const offset = CIRC * (1 - pct);
+  return `
+    <div class="ring-wrap">
+      <svg width="58" height="58" viewBox="0 0 58 58">
+        <circle class="ring-bg" cx="29" cy="29" r="${RADIUS}"></circle>
+        <circle class="ring-fill" cx="29" cy="29" r="${RADIUS}"
+          stroke="${accent}"
+          stroke-dasharray="${CIRC}"
+          stroke-dashoffset="${offset}"></circle>
+      </svg>
+      <div class="ring-pct">${Math.round(pct*100)}%</div>
+    </div>
+  `;
+}
+
+function widgetHTML(goal){
+  const s = getGoalState(goal);
+  if(goal.type === "checklist"){
+    return `<ul class="steps">` + goal.steps.map((step, i) => `
+      <li class="${s.done[i] ? 'done' : ''}">
+        <input type="checkbox" id="${goal.id}-${i}" data-goal="${goal.id}" data-idx="${i}" ${s.done[i] ? 'checked' : ''}>
+        <label for="${goal.id}-${i}">${step}</label>
+      </li>
+    `).join("") + `</ul>`;
+  }
+  if(goal.type === "counter"){
+    return `
+      <div class="counter">
+        <button data-goal="${goal.id}" data-dir="-1" aria-label="decrease">−</button>
+        <span class="count-display">${s.count} / ${goal.target} ${goal.unit}</span>
+        <button data-goal="${goal.id}" data-dir="1" aria-label="increase">+</button>
+      </div>
+    `;
+  }
+  if(goal.type === "streak"){
+    return `
+      <div class="streak">
+        ${s.on.map((on, i) => `<button data-goal="${goal.id}" data-idx="${i}" class="${on ? 'on' : ''}" aria-label="week ${i+1}">${i+1}</button>`).join("")}
+      </div>
+      ${goal.note ? `<div class="note">${goal.note}</div>` : ""}
+    `;
+  }
+  return "";
+}
+
+function cardHTML(goal, accent){
+  const pct = progressOf(goal);
+  return `
+    <div class="card" style="--accent:${accent}">
+      ${ringSVG(pct, accent)}
+      <div class="card-body">
+        <h3>${goal.title}</h3>
+        ${widgetHTML(goal)}
+      </div>
+    </div>
+  `;
+}
+
+function render(){
+  const app = document.getElementById("app");
+  app.innerHTML = CATEGORIES.map(cat => {
+    const goals = GOALS.filter(g => g.cat === cat.id);
+    return `
+      <section class="category" id="${cat.id}">
+        <div class="cat-head">
+          <span class="cat-tag" style="color:${cat.accent}">${cat.tag} —</span>
+          <h2>${cat.label}</h2>
+          <span class="cat-count">${goals.length} goal${goals.length !== 1 ? 's' : ''}</span>
+        </div>
+        <div class="grid">
+          ${goals.map(g => cardHTML(g, cat.accent)).join("")}
+        </div>
+      </section>
+    `;
+  }).join("");
+
+  attachHandlers();
+  updateOverall();
+}
+
+function updateOverall(){
+  const total = GOALS.reduce((sum, g) => sum + progressOf(g), 0);
+  const pct = Math.round((total / GOALS.length) * 100);
+  document.getElementById("overallFill").style.width = pct + "%";
+  document.getElementById("overallPct").textContent = pct + "%";
+}
+
+function attachHandlers(){
+  document.querySelectorAll('.steps input[type="checkbox"]').forEach(cb => {
+    cb.addEventListener("change", () => {
+      const goal = GOALS.find(g => g.id === cb.dataset.goal);
+      const s = getGoalState(goal);
+      s.done[cb.dataset.idx] = cb.checked;
+      saveState();
+      render();
+    });
+  });
+
+  document.querySelectorAll('.counter button').forEach(btn => {
+    btn.addEventListener("click", () => {
+      const goal = GOALS.find(g => g.id === btn.dataset.goal);
+      const s = getGoalState(goal);
+      const dir = parseInt(btn.dataset.dir, 10);
+      s.count = Math.max(0, Math.min(goal.target, s.count + dir));
+      saveState();
+      render();
+    });
+  });
+
+  document.querySelectorAll('.streak button').forEach(btn => {
+    btn.addEventListener("click", () => {
+      const goal = GOALS.find(g => g.id === btn.dataset.goal);
+      const s = getGoalState(goal);
+      const i = parseInt(btn.dataset.idx, 10);
+      s.on[i] = !s.on[i];
+      saveState();
+      render();
+    });
+  });
+}
+
+render();
+</script>
+
+</body>
+</html>
