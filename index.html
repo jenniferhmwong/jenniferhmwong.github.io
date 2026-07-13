@@ -7,245 +7,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400..600&family=Karla:wght@400;500;700&family=Caveat:wght@600&display=swap" rel="stylesheet">
-<style>
-  :root{
-    --bg: #FBF1E6;
-    --bg-card: #FFFCF7;
-    --bg-card-hi: #FFF6EA;
-    --cream: #4A3B36;
-    --cream-dim: #8A766D;
-    --gold: #B9862E;
-    --rose: #B5636F;
-    --sage: #6E8B57;
-    --clay: #B8923F;
-    --peri: #5F73A0;
-    --line: rgba(74,59,54,0.12);
-    --check-mark: #FFFCF7;
-    --shadow: 0 10px 26px -14px rgba(74,59,54,0.28);
-  }
-
-  *{box-sizing:border-box;}
-  html{scroll-behavior:smooth;}
-
-  body{
-    margin:0;
-    background:var(--bg);
-    color:var(--cream);
-    font-family:'Karla', sans-serif;
-    line-height:1.6;
-    -webkit-font-smoothing:antialiased;
-  }
-
-  body::before{
-    content:"";
-    position:fixed;
-    inset:0;
-    pointer-events:none;
-    opacity:0.06;
-    background-image:radial-gradient(circle at 1px 1px, #4A3B36 1px, transparent 0);
-    background-size:22px 22px;
-    z-index:0;
-  }
-
-  body{
-    background-image:radial-gradient(ellipse at 20% -10%, rgba(185,134,46,0.10), transparent 55%),
-                      radial-gradient(ellipse at 100% 10%, rgba(181,99,111,0.08), transparent 50%);
-    background-attachment:fixed;
-  }
-
-  h1,h2,h3{font-family:'Fraunces', serif; font-weight:500; margin:0;}
-
-  .wrap{max-width:1180px; margin:0 auto; padding:0 24px; position:relative; z-index:1;}
-
-  a{color:var(--gold);}
-
-  .hero{padding:88px 0 48px;}
-  .hero .year{
-    font-size:clamp(64px, 14vw, 150px);
-    line-height:0.9;
-    letter-spacing:-2px;
-    background:linear-gradient(115deg, var(--gold) 0%, var(--rose) 55%, var(--clay) 100%);
-    -webkit-background-clip:text;
-    background-clip:text;
-    color:transparent;
-  }
-  .hero .kicker{
-    font-family:'Caveat', cursive;
-    font-size:28px;
-    color:var(--gold);
-    margin-bottom:6px;
-    display:block;
-  }
-  .hero p.sub{
-    max-width:520px;
-    color:var(--cream-dim);
-    font-size:17px;
-    margin-top:18px;
-  }
-
-  .tabs{
-    display:flex;
-    gap:8px;
-    flex-wrap:wrap;
-    padding:20px 0 8px;
-    position:sticky;
-    top:0;
-    background:linear-gradient(var(--bg) 80%, transparent);
-    z-index:5;
-  }
-  .tab{
-    font-family:'Fraunces', serif;
-    font-size:14px;
-    padding:8px 16px;
-    border-radius:20px;
-    border:1px solid var(--line);
-    background:var(--bg-card);
-    color:var(--cream-dim);
-    text-decoration:none;
-    transition:all .2s ease;
-  }
-  .tab:hover, .tab:focus-visible{
-    border-color:currentColor;
-    background:var(--bg-card-hi);
-    box-shadow:var(--shadow);
-    outline:none;
-  }
-
-  section.category{padding:56px 0 8px;}
-  .cat-head{
-    display:flex;
-    align-items:baseline;
-    gap:14px;
-    border-bottom:1px solid var(--line);
-    padding-bottom:14px;
-    margin-bottom:28px;
-  }
-  .cat-tag{
-    font-family:'Caveat', cursive;
-    font-size:22px;
-  }
-  .cat-head h2{font-size:28px;}
-  .cat-count{
-    margin-left:auto;
-    font-size:13px;
-    color:var(--cream-dim);
-    font-family:'Karla', sans-serif;
-  }
-
-  .grid{
-    display:grid;
-    grid-template-columns:repeat(3, 1fr);
-    gap:16px;
-  }
-  @media (max-width:940px){
-    .grid{grid-template-columns:repeat(2, 1fr);}
-  }
-  @media (max-width:600px){
-    .grid{grid-template-columns:1fr;}
-  }
-
-  .card{
-    background:var(--bg-card);
-    border:1px solid var(--line);
-    border-radius:16px;
-    padding:46px 18px 16px;
-    position:relative;
-    box-shadow:var(--shadow);
-    transition:background .25s ease, transform .25s ease, box-shadow .25s ease;
-  }
-  .card:hover{
-    background:var(--bg-card-hi);
-    transform:translateY(-2px);
-    box-shadow:0 16px 30px -14px rgba(74,59,54,0.32);
-  }
-
-  .goal-num{
-    position:absolute;
-    top:14px;
-    left:14px;
-    width:24px;
-    height:24px;
-    border-radius:50%;
-    border:1px solid var(--line);
-    background:var(--bg);
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    font-family:'Fraunces', serif;
-    font-size:11px;
-    color:var(--cream-dim);
-  }
-
-  .status-badge{
-    position:absolute;
-    top:14px;
-    right:14px;
-    font-size:11px;
-    font-family:'Karla', sans-serif;
-    font-weight:700;
-    letter-spacing:0.02em;
-    text-transform:uppercase;
-    padding:4px 10px;
-    border-radius:12px;
-    border:1px solid var(--line);
-    background:var(--bg);
-    color:var(--cream-dim);
-    white-space:nowrap;
-  }
-  .status-badge.in-progress{
-    border-color:var(--accent, var(--gold));
-    color:var(--accent, var(--gold));
-    background:transparent;
-  }
-  .status-badge.completed{
-    border-color:var(--accent, var(--gold));
-    background:var(--accent, var(--gold));
-    color:var(--check-mark);
-  }
-
-  .card-top{margin-bottom:14px; padding-right:78px;}
-
-  .card-body h3{font-size:16px; margin-bottom:6px; color:var(--cream);}
-  .card-body .blurb{font-size:12.5px; color:var(--cream-dim); line-height:1.5; margin:0;}
-
-  .updates{border-top:1px solid var(--line); padding-top:12px;}
-  .updates-label{
-    font-family:'Caveat', cursive;
-    font-size:17px;
-    color:var(--accent, var(--gold));
-    margin-bottom:6px;
-  }
-  .update-list{list-style:none; margin:0; padding:0; display:flex; flex-direction:column; gap:5px;}
-  .update-list li{
-    font-size:13px;
-    color:var(--cream-dim);
-    padding-left:14px;
-    position:relative;
-  }
-  .update-list li::before{
-    content:"";
-    position:absolute;
-    left:0; top:7px;
-    width:5px; height:5px;
-    border-radius:50%;
-    background:var(--accent, var(--gold));
-  }
-  .update-list li.empty{color:var(--cream-dim); opacity:0.6; font-style:italic;}
-  .update-list li.empty::before{display:none;}
-
-  footer{
-    padding:60px 0 80px;
-    color:var(--cream-dim);
-    font-size:13px;
-    border-top:1px solid var(--line);
-    margin-top:40px;
-  }
-  footer .signoff{font-family:'Caveat', cursive; font-size:20px; color:var(--gold); display:block; margin-bottom:6px;}
-
-  @media (prefers-reduced-motion: reduce){
-    *{transition:none !important; scroll-behavior:auto !important;}
-  }
-</style>
+<link rel="stylesheet" href="styles.css">
 </head>
 <body>
 
@@ -254,7 +16,7 @@
   <header class="hero">
     <span class="kicker">the year, kept track of —</span>
     <h1 class="year">2026</h1>
-    <p class="sub">The ten things I'm working toward this year, sorted the way they live in my head: how I spend my downtime, how I take care of myself, how I build an intentional career, and how it all fits together.</p>
+    <p class="sub">Ten things I'm working toward this year, sorted the way they actually live in my head: how I spend my downtime, how I take care of myself, the career I want to build, and how it all fits together.</p>
   </header>
 
   <nav class="tabs">
@@ -264,102 +26,28 @@
     <a class="tab" href="#finance" style="color:var(--peri)">Finance</a>
   </nav>
 
-  <main id="app"></main>
+  <main id="app"><p style="color:var(--cream-dim); padding:40px 0;">Loading…</p></main>
 
   <footer>
-    <span class="signoff">footnotes —</span>
-    This page is a snapshot in time. I update it myself as the year goes on.
+    <span class="signoff">foot notes —</span>
+    This page shows where I'm actually at — it's a snapshot in time. I update it myself as the year goes on.
   </footer>
 
 </div>
 
 <script>
 const CATEGORIES = [
-  { id:"social",  tag:"the fun stuff",                    label:"Social & Hobbies",   accent:"var(--rose)" },
-  { id:"health",  tag:"looking after myself",             label:"Health",             accent:"var(--sage)" },
-  { id:"career",  tag:"building an intentional career",   label:"Portfolio Career",   accent:"var(--clay)" },
-  { id:"finance", tag:"adulting",                         label:"Finance",            accent:"var(--peri)" },
-];
-
-const GOALS = [
-  {
-    id:"read-12-books", cat:"social", title:"Read 12 books",
-    blurb:"I love reading biographies and memoirs. They help me learn from other people's successes and challenges.",
-    percent:8,
-    updates:["Educated by Tara Westover"]
-  },
-  {
-    id:"liam-photobook", cat:"social", title:"Print a photobook of Liam's first year",
-    blurb:"A proper printed keepsake for baby.",
-    percent:0,
-    updates:[]
-  },
-  {
-    id:"postcards", cat:"social", title:"Write 1 postcard a week all summer",
-    blurb:"One handwritten postcard a week during our Canada & Europe sabbatical.",
-    percent:0,
-    updates:[]
-  },
-  {
-    id:"operationlady", cat:"social", title:"Wardrobe makeover — #operationlady",
-    blurb:"Building a wardrobe that I really love and feel good in.",
-    percent:0,
-    updates:[]
-  },
-  {
-    id:"5k", cat:"health", title:"Sub 30 minute 5k, 6:00/km pace",
-    blurb:"Getting back into shape after baby.",
-    percent:0,
-    updates:[]
-  },
-  {
-    id:"meal-prep", cat:"health", title:"Meal prep every weekend back in Sydney",
-    blurb:"To have more time during hectic weekdays to spend with the family.",
-    percent:0,
-    updates:[]
-  },
-  {
-    id:"cpr", cat:"health", title:"Learn CPR",
-    blurb:"A skill I've meant to learn for years.",
-    percent:0,
-    updates:[]
-  },
-  {
-    id:"cookie-stall", cat:"career", title:"Launch first cookie pop up at the local market",
-    blurb:"Testing my career dream of opening my own business and selling something I'm passionate about.",
-    percent:0,
-    updates:[]
-  },
-  {
-    id:"interview", cat:"career", title:"Interview at one company",
-    blurb:"Getting my feet wet returning to full time work.",
-    percent:0,
-    updates:[]
-  },
-  {
-    id:"financial-advisor", cat:"finance", title:"Get a financial advisor",
-    blurb:"Getting professional eyes on our finances to work toward our long term goals.",
-    percent:0,
-    updates:[]
-  },
+  { id:"social",  label:"Social & Hobbies",  tag:"the fun stuff",        accent:"var(--rose)" },
+  { id:"health",  label:"Health",             tag:"looking after myself", accent:"var(--sage)" },
+  { id:"career",  label:"Portfolio Career",   tag:"building an intentional career",   accent:"var(--clay)" },
+  { id:"finance", label:"Finance",            tag:"adulting", accent:"var(--peri)" },
 ];
 
 function statusOf(goal){
-  if(goal.percent <= 0) return { label:"not started", cls:"" };
-  if(goal.percent >= 100) return { label:"completed", cls:"completed" };
-  return { label:"in progress", cls:"in-progress" };
-}
-
-function updatesHTML(goal){
-  const items = goal.updates && goal.updates.length
-    ? goal.updates.map(u => `<li>${u}</li>`).join("")
-    : `<li class="empty">No updates yet</li>`;
-  return `
-    <div class="updates">
-      <div class="updates-label">progress updates —</div>
-      <ul class="update-list">${items}</ul>
-    </div>
-  `;
+  const cls = goal.status === "completed" ? "completed"
+    : goal.status === "in progress" ? "in-progress"
+    : "";
+  return { label: goal.status, cls };
 }
 
 function cardHTML(goal, accent, num){
@@ -372,31 +60,41 @@ function cardHTML(goal, accent, num){
         <h3>${goal.title}</h3>
         <p class="blurb">${goal.blurb}</p>
       </div>
-      ${updatesHTML(goal)}
+      <a class="updates-btn" href="updates.html">
+        Progress updates <span class="arrow">→</span>
+      </a>
     </div>
   `;
 }
 
-function render(){
+function render(goals){
   const app = document.getElementById("app");
   app.innerHTML = CATEGORIES.map(cat => {
-    const goals = GOALS.filter(g => g.cat === cat.id);
+    const catGoals = goals.filter(g => g.cat === cat.id);
+    if(!catGoals.length) return "";
     return `
       <section class="category" id="${cat.id}">
         <div class="cat-head">
           <span class="cat-tag" style="color:${cat.accent}">${cat.tag} —</span>
           <h2>${cat.label}</h2>
-          <span class="cat-count">${goals.length} goal${goals.length !== 1 ? 's' : ''}</span>
+          <span class="cat-count">${catGoals.length} goal${catGoals.length !== 1 ? 's' : ''}</span>
         </div>
         <div class="grid">
-          ${goals.map(g => cardHTML(g, cat.accent, GOALS.indexOf(g) + 1)).join("")}
+          ${catGoals.map(g => cardHTML(g, cat.accent, goals.indexOf(g) + 1)).join("")}
         </div>
       </section>
     `;
   }).join("");
 }
 
-render();
+fetch('goals.json')
+  .then(res => res.json())
+  .then(render)
+  .catch(err => {
+    document.getElementById('app').innerHTML =
+      '<p style="color:var(--cream-dim); padding:40px 0;">Couldn\'t load goals.json — if you\'re previewing this file locally, that\'s expected. It will load once the site is live on GitHub Pages.</p>';
+    console.error(err);
+  });
 </script>
 
 </body>
