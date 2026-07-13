@@ -18,70 +18,6 @@
     "cat": "social",
     "title": "Write 1 postcard a week, all summer",
     "blurb": "One handwritten postcard a week during our Canada/Europe sabbatical.",
-    "status": "not started"
-  },
-  {
-    "id": "operationlady",
-    "cat": "social",
-    "title": "Wardrobe makeover — #operationlady",
-    "blurb": "Building a wardrobe that I really love and feel good in.",
-    "status": "not started"
-  },
-  {
-    "id": "5k",
-    "cat": "health",
-    "title": "Sub 30 minute 5k, 6:00/km pace",
-    "blurb": "Getting back into shape after baby",
-    "status": "not started"
-  },
-  {
-    "id": "meal-prep",
-    "cat": "health",
-    "title": "Meal prep every weekend, back in Sydney",
-    "blurb": "To have more time during the week to spend with the family.",
-    "status": "not started"
-  },
-  {
-    "id": "cpr",
-    "cat": "health",
-    "title": "Learn CPR",
-    "blurb": "A skill I've meant to learn for years — finally getting properly certified.",
-    "status": "not started"
-  },
-  {
-    "id": "cookie-stall",
-    "cat": "career",
-    "title": "Launch first cookie pop-up at the local market",
-    "blurb": "Testing my career dream of opening my own business and selling something I'm passionate about.",
-    "status": "not started"
-  },
-  {
-    "id": "interview",
-    "cat": "career",
-    "title": "Interview at one company",
-    "blurb": "Getting my feet wet with returning to full time work.",
-    "status": "not started"
-  },
-  {[
-  {
-    "id": "read-12-books",
-    "cat": "social",
-    "title": "Read 12 books",
-    "blurb": "I love reading biographies and memoirs - they help me learn from other people's successes and challenges.",
-    "status": "in progress"
-  },
-  {
-    "id": "liam-photobook",
-    "cat": "social",
-    "title": "Print a photobook of Liam's first year",
-    "blurb": "A proper printed keepsake of Liam's whole first year.",
-    "status": "not started"
-  },
-  {
-    "id": "postcards",
-    "cat": "social",
-    "title": "Write 1 postcard a week, all summer",
-    "blurb": "One handwritten postcard a week during our Canada/Europe sabbatical.",
     "status": "in progress"
   },
   {
@@ -132,12 +68,5 @@
     "title": "Get a financial advisor",
     "blurb": "Getting professional eyes on our finances to work toward our long term goals.",
     "status": "in progress"
-  }
-]
-    "id": "financial-advisor",
-    "cat": "finance",
-    "title": "Get a financial advisor",
-    "blurb": "Getting professional eyes on our finances to work toward our long term goals.",
-    "status": "not started"
   }
 ]
