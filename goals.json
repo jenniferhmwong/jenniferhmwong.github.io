@@ -16,7 +16,7 @@
   {
     "id": "postcards",
     "cat": "social",
-    "title": "Write 1 postcard a week, all summer",
+    "title": "Write 1 postcard a week all summer",
     "blurb": "One handwritten postcard a week during our Canada/Europe sabbatical.",
     "status": "in progress"
   },
@@ -37,7 +37,7 @@
   {
     "id": "meal-prep",
     "cat": "health",
-    "title": "Meal prep every weekend, back in Sydney",
+    "title": "Meal prep every weekend back in Sydney",
     "blurb": "To have more time during the week to spend with the family.",
     "status": "not started"
   },
@@ -51,7 +51,7 @@
   {
     "id": "cookie-stall",
     "cat": "career",
-    "title": "Launch first cookie pop-up at the local market",
+    "title": "Launch first cookie pop-up at a local market",
     "blurb": "Testing my career dream of opening my own business and selling something I'm passionate about.",
     "status": "in progress"
   },
