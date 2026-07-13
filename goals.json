@@ -18,7 +18,7 @@
   {
     "id": "postcards",
     "cat": "social",
-    "title": "Write 1 postcard a week, all summer",
+    "title": "Write 1 postcard a week all summer",
     "blurb": "One handwritten postcard a week during our Canada/Europe sabbatical.",
     "status": "in progress",
     "percent": 25
@@ -42,7 +42,7 @@
   {
     "id": "meal-prep",
     "cat": "health",
-    "title": "Meal prep every weekend, back in Sydney",
+    "title": "Meal prep every weekend back in Sydney",
     "blurb": "To have more time during the week to spend with the family.",
     "status": "not started",
     "percent": 0
