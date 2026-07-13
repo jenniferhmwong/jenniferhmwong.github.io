@@ -60,7 +60,7 @@ function cardHTML(goal, accent, num){
         <h3>${goal.title}</h3>
         <p class="blurb">${goal.blurb}</p>
       </div>
-      <a class="updates-btn" href="updates.html">
+      <a class="updates-btn" href="updates.html?goal=${encodeURIComponent(goal.id)}">
         Progress updates <span class="arrow">→</span>
       </a>
     </div>

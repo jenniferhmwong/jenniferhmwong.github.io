@@ -14,9 +14,9 @@
 <div class="wrap">
 
   <header class="updates-hero">
-    <span class="kicker">the log —</span>
-    <h1>Progress updates</h1>
-    <p>Everything I've posted about the 2026 goals, newest first.</p>
+    <span class="kicker" id="kicker">the log —</span>
+    <h1 id="pageTitle">Progress updates</h1>
+    <p id="pageSub">Loading…</p>
     <a class="back-link" href="index.html">← back to goals</a>
   </header>
 
@@ -32,10 +32,8 @@ const CATEGORIES = [
   { id:"finance", accent:"var(--peri)" },
 ];
 
-function accentFor(goal, goalsById){
-  const g = goalsById[goal];
-  if(!g) return "var(--gold)";
-  const cat = CATEGORIES.find(c => c.id === g.cat);
+function accentForCat(catId){
+  const cat = CATEGORIES.find(c => c.id === catId);
   return cat ? cat.accent : "var(--gold)";
 }
 
@@ -45,38 +43,49 @@ function formatDate(iso){
   return d.toLocaleDateString('en-US', { month:'short', day:'numeric', year:'numeric' });
 }
 
-function renderLog(updates, goalsById){
+function renderLog(entries, accent){
   const logEl = document.getElementById('log');
 
-  if(!updates.length){
-    logEl.innerHTML = `<p class="log-empty">No updates posted yet.</p>`;
+  if(!entries.length){
+    logEl.innerHTML = `<p class="log-empty">No updates posted for this goal yet.</p>`;
     return;
   }
 
-  const sorted = updates.slice().sort((a, b) => b.date.localeCompare(a.date));
+  const sorted = entries.slice().sort((a, b) => b.date.localeCompare(a.date));
 
-  logEl.innerHTML = sorted.map(u => {
-    const goal = goalsById[u.goal];
-    const accent = accentFor(u.goal, goalsById);
-    return `
-      <div class="log-entry">
-        <div class="log-date">${formatDate(u.date)}</div>
-        <div class="log-body">
-          ${goal ? `<span class="log-goal" style="color:${accent}">${goal.title}</span><br>` : ""}
-          <span class="log-text">${u.text}</span>
-        </div>
+  logEl.innerHTML = sorted.map(u => `
+    <div class="log-entry">
+      <div class="log-date" style="color:${accent}">${formatDate(u.date)}</div>
+      <div class="log-body">
+        <span class="log-text">${u.text}</span>
       </div>
-    `;
-  }).join("");
+    </div>
+  `).join("");
 }
+
+const params = new URLSearchParams(window.location.search);
+const goalId = params.get('goal');
 
 Promise.all([
   fetch('goals.json').then(r => r.json()),
   fetch('updates.json').then(r => r.json())
 ]).then(([goals, updates]) => {
-  const goalsById = {};
-  goals.forEach(g => goalsById[g.id] = g);
-  renderLog(updates, goalsById);
+  if(!goalId){
+    document.getElementById('pageTitle').textContent = "No goal selected";
+    document.getElementById('pageSub').textContent = "Head back to the goals page and click \u201cProgress updates\u201d on a specific goal.";
+    document.getElementById('log').innerHTML = "";
+    return;
+  }
+
+  const goal = goals.find(g => g.id === goalId);
+  const accent = goal ? accentForCat(goal.cat) : "var(--gold)";
+
+  document.getElementById('pageTitle').textContent = goal ? goal.title : "Unknown goal";
+  document.getElementById('pageTitle').style.color = accent;
+  document.getElementById('pageSub').textContent = "Every update on this goal, newest first.";
+
+  const entries = updates.filter(u => u.goal === goalId);
+  renderLog(entries, accent);
 }).catch(err => {
   document.getElementById('log').innerHTML =
     '<p class="log-empty">Couldn\'t load the data files — if you\'re previewing this locally, that\'s expected. It will work once the site is live on GitHub Pages.</p>';
