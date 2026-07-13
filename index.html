@@ -17,6 +17,11 @@
     <span class="kicker">the year, kept track of —</span>
     <h1 class="year">2026</h1>
     <p class="sub">Ten things I'm working toward this year, sorted the way they actually live in my head: how I spend my downtime, how I take care of myself, the career I want to build, and how it all fits together.</p>
+
+    <div class="overall">
+      <div class="overall-track"><div class="overall-fill" id="overallFill"></div></div>
+      <div class="overall-label"><strong id="overallPct">0%</strong> of the year, so far</div>
+    </div>
   </header>
 
   <nav class="tabs">
@@ -30,7 +35,9 @@
 
   <footer>
     <span class="signoff">foot notes —</span>
-    This page shows where I'm actually at — it's a snapshot in time. I update it myself as the year goes on. If you're a friend, family member or you've simply made it this far, please feel free to check in and see how I'm tracking on any of these goals. I'd love the accountability.
+    This page shows where I'm actually at — it's a snapshot in time. I update it myself as the year goes on.
+    <br><br>
+    If you're a friend or family member reading this — please feel free to ask me how I'm tracking on any of these. I'd love the accountability.
   </footer>
 
 </div>
@@ -60,11 +67,22 @@ function cardHTML(goal, accent, num){
         <h3>${goal.title}</h3>
         <p class="blurb">${goal.blurb}</p>
       </div>
+      <div class="progress-row">
+        <div class="progress-track"><div class="progress-fill" style="width:${goal.percent}%"></div></div>
+        <div class="progress-pct">${goal.percent}%</div>
+      </div>
       <a class="updates-btn" href="updates.html?goal=${encodeURIComponent(goal.id)}">
         Progress updates <span class="arrow">→</span>
       </a>
     </div>
   `;
+}
+
+function updateOverall(goals){
+  const total = goals.reduce((sum, g) => sum + g.percent, 0);
+  const pct = Math.round(total / goals.length);
+  document.getElementById("overallFill").style.width = pct + "%";
+  document.getElementById("overallPct").textContent = pct + "%";
 }
 
 function render(goals){
@@ -85,6 +103,7 @@ function render(goals){
       </section>
     `;
   }).join("");
+  updateOverall(goals);
 }
 
 fetch('goals.json')
