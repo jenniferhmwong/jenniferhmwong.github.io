@@ -1,7 +1,25 @@
 [
-  {
-    "goal": "read-12-books",
-    "date": "2026-07-12",
-    "text": "Finished Educated by Tara Westover"
-  }
+  { "goal": "read-12-books", "date": "2026-06-01", "text": "Goal set to read one book per month, on average." },
+  { "goal": "liam-photobook", "date": "2026-06-01", "text": "Goal set. Target completion by Dec 2026 in time for Christmas." },
+  { "goal": "postcards", "date": "2026-06-01", "text": "Goal set. One postcard a week to give friends an update of our round-the-world trip. Handwritten letters are always appreciated but infrequently mailed." },
+  { "goal": "operationlady", "date": "2026-06-01", "text": "Goal set. It's been a while since I have truly loved what I am wearing and how it reflects on my self-esteem and confidence." },
+  { "goal": "5k", "date": "2026-06-01", "text": "Goal set. This one's going to kick me in the butt, but I've got to try!" },
+  { "goal": "meal-prep", "date": "2026-06-01", "text": "Goal set. I miss cooking while travelling and eating homemade, healthy food is really important to me." },
+  { "goal": "cpr", "date": "2026-06-01", "text": "Goal set. Hope to never use, but learn how to save a life." },
+  { "goal": "cookie-stall", "date": "2026-06-01", "text": "Goal set. This one I'm very excited about." },
+  { "goal": "interview", "date": "2026-06-01", "text": "Goal set." },
+  { "goal": "financial-advisor", "date": "2026-06-01", "text": "Goal set." }
+]
+
+[
+  { "goal": "read-12-books", "date": "2026-07-13", "text": "Two books read. Shoe Dog by Phil Knight and Educated by Tara Westover. Educated is an interesting book about how a person from a unconventional background can still push her boundaries in ways she never knew." },
+  { "goal": "liam-photobook", "date": "2026-07-13", "text": "No real progress while travelling, but it's on the radar." },
+  { "goal": "postcards", "date": "2026-07-13", "text": "On track. Sent a few from Toulouse, Madrid and Annecy already." },
+  { "goal": "operationlady", "date": "2026-07-13", "text": "On track. Bought a few classic, timeless pieces from Uniqlo. Have worn them out to see friends and family and getting lots of great compliments already. Feels nice to feel recognized in that sense." },
+  { "goal": "5k", "date": "2026-07-13", "text": "On track. Running every other day in Dinard. Last week's pace was 6:30/km but have been doing interval and fartlek training. Seeing some improvement already, with pace reducing to 6:10/km. Longest run so far has been 7k." },
+  { "goal": "meal-prep", "date": "2026-07-13", "text": "No real progress yet. Expect to work on this in September." },
+  { "goal": "cpr", "date": "2026-07-13", "text": "No real progress yet. Expect to attend CPR class upon our return to Sydney in September." },
+  { "goal": "cookie-stall", "date": "2026-07-13", "text": "Website and branding are completed. A few admnistrative things to tick off, like applying for home based food business permit, getting ABN, and opening business bank account. Recipes have been perfected. Will source ingredients and kitchen applicances when we return in September. Will probably sign up for a smaller market to start, like Palm Beach Market." },
+  { "goal": "interview", "date": "2026-07-13", "text": "Completed. Interviewed with a company in June, but it wasn't the right fit." },
+  { "goal": "financial-advisor", "date": "2026-07-13", "text": "In progress. Asking friends for referrals to interview financial advisors." }
 ]
