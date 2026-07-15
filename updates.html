@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Progress Updates — 2026 Field Notes</title>
+<title>Progress Updates — 2026 Scrapbook</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400..600&family=Karla:wght@400;500;700&family=Caveat:wght@600&display=swap" rel="stylesheet">
@@ -54,8 +54,8 @@ function renderLog(entries, accent){
   const sorted = entries.slice().sort((a, b) => b.date.localeCompare(a.date));
 
   logEl.innerHTML = sorted.map(u => `
-    <div class="log-entry">
-      <div class="log-date" style="color:${accent}">${formatDate(u.date)}</div>
+    <div class="log-entry" style="--accent:${accent}">
+      <div class="log-date">${formatDate(u.date)}</div>
       <div class="log-body">
         <span class="log-text">${u.text}</span>
       </div>

@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>2026 — Field Notes</title>
+<title>2026 — The Scrapbook</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400..600&family=Karla:wght@400;500;700&family=Caveat:wght@600&display=swap" rel="stylesheet">
@@ -31,11 +31,13 @@
     <a class="tab" href="#finance" style="color:var(--peri)">Finance</a>
   </nav>
 
-  <main id="app"><p style="color:var(--cream-dim); padding:40px 0;">Loading…</p></main>
+  <main id="app"><p style="color:var(--ink-dim); padding:40px 0;">Loading…</p></main>
 
   <footer>
-    <span class="signoff">foot notes —</span>
-    If you're a friend, family member or you've made it this far, ask me how I'm tracking on any of these. I'd love the accountability.
+    <div class="note">
+      <span class="signoff">foot notes —</span>
+      If you're a friend, family member or you've made it this far, ask me how I'm tracking on any of these. I'd love the accountability.
+    </div>
   </footer>
 
 </div>
@@ -51,7 +53,7 @@ const CATEGORIES = [
 function statusOf(goal){
   const cls = goal.status === "completed" ? "completed"
     : goal.status === "in progress" ? "in-progress"
-    : "";
+    : "not-started";
   return { label: goal.status, cls };
 }
 
@@ -59,6 +61,8 @@ function cardHTML(goal, accent, num){
   const status = statusOf(goal);
   return `
     <div class="card" style="--accent:${accent}">
+      <span class="pin" style="--accent:${accent}"></span>
+      <span class="washi" style="--accent:${accent}"></span>
       <span class="goal-num">${num}</span>
       <span class="status-badge ${status.cls}">${status.label}</span>
       <div class="card-top">
@@ -90,13 +94,15 @@ function render(goals){
     if(!catGoals.length) return "";
     return `
       <section class="category" id="${cat.id}">
-        <div class="cat-head">
-          <span class="cat-tag" style="color:${cat.accent}">${cat.tag} —</span>
-          <h2>${cat.label}</h2>
-          <span class="cat-count">${catGoals.length} goal${catGoals.length !== 1 ? 's' : ''}</span>
-        </div>
-        <div class="grid">
-          ${catGoals.map(g => cardHTML(g, cat.accent, goals.indexOf(g) + 1)).join("")}
+        <div class="corkboard">
+          <div class="cat-head">
+            <span class="cat-tag" style="color:${cat.accent}">${cat.tag} —</span>
+            <h2>${cat.label}</h2>
+            <span class="cat-count">${catGoals.length} goal${catGoals.length !== 1 ? 's' : ''}</span>
+          </div>
+          <div class="grid">
+            ${catGoals.map(g => cardHTML(g, cat.accent, goals.indexOf(g) + 1)).join("")}
+          </div>
         </div>
       </section>
     `;
@@ -109,7 +115,7 @@ fetch('goals.json')
   .then(render)
   .catch(err => {
     document.getElementById('app').innerHTML =
-      '<p style="color:var(--cream-dim); padding:40px 0;">Couldn\'t load goals.json — if you\'re previewing this file locally, that\'s expected. It will load once the site is live on GitHub Pages.</p>';
+      '<p style="color:var(--ink-dim); padding:40px 0;">Couldn\'t load goals.json — if you\'re previewing this file locally, that\'s expected. It will load once the site is live on GitHub Pages.</p>';
     console.error(err);
   });
 </script>
