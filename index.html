@@ -13,16 +13,31 @@
 
 <div class="wrap">
 
-  <header class="hero">
-    <span class="kicker">the year, kept track of —</span>
-    <h1 class="year">2026</h1>
-    <p class="sub">Ten things I'm working toward this year, sorted the way they actually live in my head: how I spend my downtime, how I take care of myself, the career I want to build, and how it all fits together.</p>
-
-    <div class="overall">
-      <div class="overall-track"><div class="overall-fill" id="overallFill"></div></div>
-      <div class="overall-label"><strong id="overallPct">0%</strong> of the year, so far</div>
-    </div>
+  <header class="page-hero">
+    <span class="kicker">the scrapbook —</span>
+    <h1>my professional story so far</h1>
+    <p class="sub">a career told in polaroid form</p>
   </header>
+
+  <section class="career">
+    <span class="section-label">career pages</span>
+    <div class="polaroid-grid" id="careerGrid"></div>
+  </section>
+
+  <section class="goals-hero">
+    <div class="goals-hero-left">
+      <div class="goals-heading">
+        <span class="kicker">the year, kept track of —</span>
+        <h2 class="year-inline">2026</h2>
+      </div>
+      <p class="sub">Ten things I'm working toward this year, sorted the way they actually live in my head: how I spend my downtime, how I take care of myself, the career I want to build, and how it all fits together.</p>
+    </div>
+    <div class="overall-card">
+      <div class="overall-pct"><span id="overallPct">0</span><span>%</span></div>
+      <div class="overall-card-label">of the year, so far</div>
+      <div class="overall-track"><div class="overall-fill" id="overallFill"></div></div>
+    </div>
+  </section>
 
   <nav class="tabs">
     <a class="tab" href="#social" style="color:var(--rose)">Social &amp; Hobbies</a>
@@ -49,6 +64,32 @@ const CATEGORIES = [
   { id:"career",  label:"Portfolio Career",   tag:"building an intentional career",   accent:"var(--clay)" },
   { id:"finance", label:"Finance",            tag:"adulting", accent:"var(--peri)" },
 ];
+
+// Placeholder roles — swap these for your own career history.
+const CAREER_ROLES = [
+  { title:"role one",   dates:"20XX — 20XX", accent:"var(--gold)" },
+  { title:"role two",   dates:"20XX — 20XX", accent:"var(--rose)" },
+  { title:"role three", dates:"20XX — 20XX", accent:"var(--sage)" },
+  { title:"role four",  dates:"20XX — 20XX", accent:"var(--clay)" },
+  { title:"role five",  dates:"20XX — now",  accent:"var(--peri)" },
+];
+const ROTATIONS = [-2.4, 1.6, -1, 2.2, -1.6];
+const TAPE_ROTATIONS = [-4, 3, -2, 4, -3];
+
+function renderCareer(){
+  const grid = document.getElementById('careerGrid');
+  grid.innerHTML = CAREER_ROLES.map((role, i) => `
+    <div class="polaroid" style="--rot:${ROTATIONS[i % ROTATIONS.length]}deg">
+      <span class="washi" style="--accent:${role.accent}; --tape-rot:${TAPE_ROTATIONS[i % TAPE_ROTATIONS.length]}deg"></span>
+      <div class="photo"><span class="photo-dot"></span></div>
+      <div class="polaroid-cap">
+        <h3>${role.title}</h3>
+        <p>${role.dates}</p>
+      </div>
+    </div>
+  `).join("");
+}
+renderCareer();
 
 function statusOf(goal){
   const cls = goal.status === "completed" ? "completed"
@@ -84,7 +125,7 @@ function updateOverall(goals){
   const total = goals.reduce((sum, g) => sum + g.percent, 0);
   const pct = Math.round(total / goals.length);
   document.getElementById("overallFill").style.width = pct + "%";
-  document.getElementById("overallPct").textContent = pct + "%";
+  document.getElementById("overallPct").textContent = pct;
 }
 
 function render(goals){
